@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('aiChatContainer');
-
-    // Shadow DOM 생성 (container가 아닌 body에 추가)
+    // Shadow DOM 호스트 생성
     const shadowHost = document.createElement('div');
-    document.body.appendChild(shadowHost); // Shadow DOM을 <body>에 추가
+    document.body.appendChild(shadowHost);
+
+    // Shadow DOM 생성
     const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
 
     // Shadow DOM 내부 HTML과 CSS
@@ -13,14 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 box-sizing: border-box;
             }
 
-            body {
-                font-family: Arial, sans-serif;
+            /* 기본 스타일 */
+            :host {
+                all: initial; /* 외부 스타일로부터 완전 분리 */
             }
 
+            /* 채팅 버튼 스타일 */
             .chat-button {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
+                position: fixed; /* 화면의 고정된 위치 */
+                bottom: 20px; /* 화면 아래에서 20px */
+                right: 20px; /* 화면 오른쪽에서 20px */
                 background-color: #3c458a;
                 color: white;
                 border: none;
@@ -32,14 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 justify-content: center;
                 cursor: pointer;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                z-index: 9989;
+                z-index: 10001; /* 다른 요소 위에 표시 */
             }
 
             .chat-button img {
                 width: 20px;
                 height: 20px;
                 margin-right: 10px;
-                margin-top: 30px;
                 filter: invert(1) brightness(4.5) contrast(4);
             }
 
@@ -48,20 +49,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 color: white;
             }
 
+            /* 대화창 스타일 */
             .chat-window {
-                position: fixed;
-                bottom: 60px;
-                right: 20px;
+                position: fixed; /* 화면 고정 위치 */
+                bottom: 60px; /* 버튼 위에 나타남 */
+                right: 20px; /* 화면 오른쪽에서 20px */
                 width: 300px;
                 height: 400px;
                 background-color: white;
                 border: 1px solid #ccc;
                 border-radius: 10px;
-                display: none;
+                display: none; /* 기본적으로 숨김 */
                 flex-direction: column;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                z-index: 10000;
-                overflow: hidden;
+                z-index: 10002; /* 버튼보다 위에 표시 */
             }
 
             .chat-header {
@@ -103,20 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 padding: 8px 12px;
                 cursor: pointer;
             }
-
-            .emoji-list {
-                display: none;
-                flex-wrap: wrap;
-                gap: 5px;
-                padding: 10px;
-                background-color: #f1f1f1;
-                border-top: 1px solid #ccc;
-            }
-
-            .emoji {
-                cursor: pointer;
-                font-size: 18px;
-            }
         </style>
 
         <div class="chat-button" id="chatButton">
@@ -127,20 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="chat-window" id="chatWindow">
             <div class="chat-header">
                 AI Assistant
-                <div>
-                    <button id="toggleEmojis">😀</button>
-                    <button id="clearChat">🗑️</button>
-                    <button id="closeChat">✖</button>
-                </div>
+                <button id="closeChat">✖</button>
             </div>
             <div class="chat-messages" id="chatMessages"></div>
-            <div class="emoji-list" id="emojiList">
-                <span class="emoji">😀</span>
-                <span class="emoji">😁</span>
-                <span class="emoji">😂</span>
-                <span class="emoji">🤣</span>
-                <span class="emoji">😊</span>
-            </div>
             <div class="chat-footer">
                 <input type="text" id="chatInput" placeholder="Type your message...">
                 <button id="sendMessage">Send</button>
@@ -148,26 +124,25 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
     `;
 
-    // Shadow DOM 내부 요소
+    // Shadow DOM 내부 요소 참조
     const chatButton = shadowRoot.getElementById('chatButton');
     const chatWindow = shadowRoot.getElementById('chatWindow');
     const chatMessages = shadowRoot.getElementById('chatMessages');
     const chatInput = shadowRoot.getElementById('chatInput');
     const sendMessage = shadowRoot.getElementById('sendMessage');
-    const toggleEmojis = shadowRoot.getElementById('toggleEmojis');
-    const emojiList = shadowRoot.getElementById('emojiList');
-    const clearChat = shadowRoot.getElementById('clearChat');
     const closeChat = shadowRoot.getElementById('closeChat');
 
-    // 이벤트 처리
+    // 버튼 클릭 이벤트: 대화창 열기
     chatButton.addEventListener('click', () => {
         chatWindow.style.display = 'flex';
     });
 
+    // 닫기 버튼 클릭 이벤트: 대화창 닫기
     closeChat.addEventListener('click', () => {
         chatWindow.style.display = 'none';
     });
 
+    // 메시지 전송 이벤트
     sendMessage.addEventListener('click', () => {
         const userMessage = chatInput.value.trim();
         if (userMessage) {
@@ -179,20 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    toggleEmojis.addEventListener('click', () => {
-        emojiList.style.display = emojiList.style.display === 'flex' ? 'none' : 'flex';
-    });
-
-    emojiList.addEventListener('click', (e) => {
-        if (e.target.classList.contains('emoji')) {
-            chatInput.value += e.target.textContent;
-        }
-    });
-
-    clearChat.addEventListener('click', () => {
-        chatMessages.innerHTML = '';
-    });
-
+    // 메시지 추가 함수
     function appendMessage(message, sender) {
         const messageDiv = document.createElement('div');
         messageDiv.textContent = message;

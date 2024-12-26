@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     shadowRoot.innerHTML = `
         <style>
                 .chat-button-wrapper {
-            position: fixed; /* 버튼과 여백을 화면 고정 */
+            position: static; /* 버튼과 여백을 화면 고정 */
             bottom: 20px; /* 화면 아래에서 20px */
             right: 20px; /* 화면 오른쪽에서 20px */
             width: 120px;
-            height: 120px; /* 여백 영역 확장 */
+            height: 180px; /* 여백 영역 확장 */
             display: flex;
             align-items: center;
             justify-content: center;

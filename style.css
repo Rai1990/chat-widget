@@ -21,7 +21,7 @@ body.ai-chat-body {
     justify-content: flex-start;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    z-index: 10000 !important;
 }
 
 .ai-chat-button img {
@@ -36,17 +36,17 @@ body.ai-chat-body {
 }
 
 .ai-chat-window {
-    position: fixed;
-    bottom: 90px;
-    right: 20px;
-    width: 300px;
-    height: 400px;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    position: fixed; !important;
+    bottom: 90px; !important;
+    right: 20px; !important;
+    width: 300px; !important;
+    height: 400px; !important;
+    background-color: white; !important;
+    border: 1px solid #ccc; !important;
+    border-radius: 10px; !important;
     display: none;
     flex-direction: column;
-    z-index: 1000;
+    z-index: 10000; !important;
 }
 
 .ai-chat-header {

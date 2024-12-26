@@ -10,13 +10,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearChat = document.getElementById('aiClearChat');
     const closeChat = document.getElementById('aiCloseChat');
 
-    chatButton.addEventListener('click', () => {
-        chatWindow.style.display = 'flex';
+    chatButton.addEventListener('click', (event) => {
+        // 이벤트 전파 방지
+        event.stopPropagation();
+
+        // 대화창이 보이도록 설정
+        if (chatWindow.style.display === 'none' || !chatWindow.style.display) {
+            chatWindow.style.display = 'flex';
+        } else {
+            chatWindow.style.display = 'none';
+        }
     });
 
     closeChat.addEventListener('click', () => {
         chatWindow.style.display = 'none';
     });
+
+    
+    // 페이지 내 다른 영역 클릭 시 대화창 닫기
+    document.addEventListener('click', () => {
+        chatWindow.style.display = 'none';
+    });
+
+    // 대화창 클릭 시 닫히지 않도록 설정
+    chatWindow.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+});
 
     sendMessage.addEventListener('click', () => {
         const userMessage = chatInput.value.trim();

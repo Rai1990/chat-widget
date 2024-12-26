@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .chat-button {
                 position: fixed; /* 화면의 고정된 위치 */
                 bottom: 20px; /* 화면 아래에서 20px */
-                right: 20px; /* 화면 오른쪽에서 20px */
+                right: 30px; /* 화면 오른쪽에서 20px */
                 background-color: #3c458a;
                 color: white;
                 border: none;

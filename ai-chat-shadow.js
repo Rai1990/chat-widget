@@ -1,12 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('aiChatContainer');
 
-    // Shadow DOM 생성
-    const shadowRoot = container.attachShadow({ mode: 'open' });
+    // Shadow DOM 생성 (container가 아닌 body에 추가)
+    const shadowHost = document.createElement('div');
+    document.body.appendChild(shadowHost); // Shadow DOM을 <body>에 추가
+    const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
 
     // Shadow DOM 내부 HTML과 CSS
     shadowRoot.innerHTML = `
         <style>
+            * {
+                box-sizing: border-box;
+            }
+
             body {
                 font-family: Arial, sans-serif;
             }

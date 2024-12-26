@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             .chat-button {
                 position: fixed;
-                bottom: 20px;
+                bottom: 80px;
                 right: 20px;
                 background-color: #3c458a;
                 color: white;

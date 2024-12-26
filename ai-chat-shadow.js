@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 justify-content: center;
                 cursor: pointer;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                z-index: 1000;
+                z-index: 9999;
             }
 
             .chat-button img {
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 display: none;
                 flex-direction: column;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                z-index: 1000;
+                z-index: 10000;
             }
 
             .chat-header {

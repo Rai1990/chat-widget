@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 width: 20px;
                 height: 20px;
                 margin-right: 10px;
+                margin-top: 30px;
                 filter: invert(1) brightness(4.5) contrast(4);
             }
 

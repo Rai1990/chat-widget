@@ -6,15 +6,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Shadow DOM 생성
     const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
 
-    // Shadow DOM 내부 HTML (버튼만 포함)
-    shadowRoot.innerHTML = `
-        <style>  
+    // Shadow DOM 내부 HTML과 CSS
     shadowRoot.innerHTML = `
         <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            /* 기본 스타일 */
+            :host {
+                all: initial; /* 외부 스타일로부터 완전 분리 */
+            }
+
+            /* 채팅 버튼 스타일 */
             .chat-button {
                 position: fixed; /* 화면의 고정된 위치 */
                 bottom: 20px; /* 화면 아래에서 20px */
-                right: 30px; /* 화면 오른쪽에서 20px */
+                right: 20px; /* 화면 오른쪽에서 20px */
                 background-color: #3c458a;
                 color: white;
                 border: none;
@@ -40,18 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 font-size: 14px;
                 color: white;
             }
-        </style>
 
-        <div class="chat-button" id="chatButton">
-            <img src="https://assets.zyrosite.com/mv0DG6JwWzI53g8E/send-AGBnBL2R54cnRExJ.png" alt="Chat AI">
-            <span>Chat AI</span>
-        </div>
-    `;
-
-    // 대화창 요소 생성 (Shadow DOM 외부)
-    const chatWindow = document.createElement('div');
-    chatWindow.innerHTML = `
-        <style>
+            /* 대화창 스타일 */
             .chat-window {
                 position: fixed; /* 화면 고정 위치 */
                 bottom: 60px; /* 버튼 위에 나타남 */
@@ -108,6 +106,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         </style>
 
+        <div class="chat-button" id="chatButton">
+            <img src="https://assets.zyrosite.com/mv0DG6JwWzI53g8E/send-AGBnBL2R54cnRExJ.png" alt="Chat AI">
+            <span>Chat AI</span>
+        </div>
+
         <div class="chat-window" id="chatWindow">
             <div class="chat-header">
                 AI Assistant
@@ -120,26 +123,23 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         </div>
     `;
-    document.body.appendChild(chatWindow);
 
     // Shadow DOM 내부 요소 참조
     const chatButton = shadowRoot.getElementById('chatButton');
-
-    // Shadow DOM 외부 대화창 내부 요소 참조
-    const chatWindowDiv = chatWindow.querySelector('#chatWindow');
-    const chatMessages = chatWindow.querySelector('#chatMessages');
-    const chatInput = chatWindow.querySelector('#chatInput');
-    const sendMessage = chatWindow.querySelector('#sendMessage');
-    const closeChat = chatWindow.querySelector('#closeChat');
+    const chatWindow = shadowRoot.getElementById('chatWindow');
+    const chatMessages = shadowRoot.getElementById('chatMessages');
+    const chatInput = shadowRoot.getElementById('chatInput');
+    const sendMessage = shadowRoot.getElementById('sendMessage');
+    const closeChat = shadowRoot.getElementById('closeChat');
 
     // 버튼 클릭 이벤트: 대화창 열기
     chatButton.addEventListener('click', () => {
-        chatWindowDiv.style.display = 'flex';
+        chatWindow.style.display = 'flex';
     });
 
     // 닫기 버튼 클릭 이벤트: 대화창 닫기
     closeChat.addEventListener('click', () => {
-        chatWindowDiv.style.display = 'none';
+        chatWindow.style.display = 'none';
     });
 
     // 메시지 전송 이벤트

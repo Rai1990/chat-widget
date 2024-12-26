@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             .chat-window {
-                position: fixed;
+                position: relative;
                 bottom: 90px;
                 right: 20px;
                 width: 300px;

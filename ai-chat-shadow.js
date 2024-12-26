@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             .chat-button {
                 position: fixed;
-                bottom: 80px;
+                bottom: 20px;
                 right: 20px;
                 background-color: #3c458a;
                 color: white;
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 justify-content: center;
                 cursor: pointer;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                z-index: 9999;
+                z-index: 9989;
             }
 
             .chat-button img {
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             .chat-window {
                 position: relative;
-                bottom: 90px;
+                bottom: 60px;
                 right: 20px;
                 width: 300px;
                 height: 400px;
@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 flex-direction: column;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 z-index: 10000;
+                overflow: hidden;
             }
 
             .chat-header {

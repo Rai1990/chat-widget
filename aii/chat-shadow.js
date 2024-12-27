@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 justify-content: center;
                 cursor: pointer;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                overflow: visible;
                 z-index: 10001; /* 버튼의 독립된 z-index */
             }
 

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Widget</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="chatWidgetContainer">
+        <button id="chatButton">Chat AI</button>
+        <div id="chatWindow">
+            <div class="chat-header">
+                <span>AI Chat</span>
+                <button id="closeChat">✖</button>
+            </div>
+            <div class="chat-messages"></div>
+            <div class="chat-footer">
+                <input type="text" id="chatInput" placeholder="Type a message..." />
+                <button id="sendMessage">Send</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

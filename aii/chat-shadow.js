@@ -1,10 +1,14 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Shadow DOM 버튼 생성
+// Shadow DOM 버튼 생성 및 Chat Window 렌더링
+(() => {
+    // Shadow DOM 호스트 생성
     const shadowHost = document.createElement('div');
-    document.body.appendChild(shadowHost); // Shadow DOM을 <body>에 추가
+    shadowHost.id = 'chat-shadow-host';
+    document.body.appendChild(shadowHost);
+
+    // Shadow DOM 루트 생성
     const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
 
-    // 버튼 스타일 및 HTML
+    // 버튼 HTML 및 스타일 추가
     shadowRoot.innerHTML = `
         <style>
             .chat-button {
@@ -22,8 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 justify-content: center;
                 cursor: pointer;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                overflow: visible;
-                z-index: 10001; /* 버튼의 독립된 z-index */
+                z-index: 10001;
             }
 
             .chat-button img {
@@ -45,11 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
     `;
 
-    // 대화창 HTML을 Shadow DOM 바깥에 렌더링
+    // Chat Window 생성
     const chatWindow = document.createElement('div');
     chatWindow.style.cssText = `
         position: fixed;
-        bottom: 70px; /* 버튼 위에 위치 */
+        bottom: 70px;
         right: 20px;
         width: 300px;
         height: 400px;
@@ -59,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         display: none;
         flex-direction: column;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        z-index: 10002; /* 대화창은 버튼보다 위에 표시 */
+        z-index: 10002;
     `;
     chatWindow.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background-color: #4CAF50; color: white; border-radius: 10px 10px 0 0;">
@@ -85,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     document.body.appendChild(chatWindow);
 
-    // Shadow DOM 내부 요소
+    // Shadow DOM 내부 요소 가져오기
     const chatButton = shadowRoot.getElementById('chatButton');
     const chatMessages = chatWindow.querySelector('#chatMessages');
     const chatInput = chatWindow.querySelector('#chatInput');
@@ -95,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearChat = chatWindow.querySelector('#clearChat');
     const closeChat = chatWindow.querySelector('#closeChat');
 
-    // 이벤트 처리
+    // 이벤트 리스너 등록
     chatButton.addEventListener('click', () => {
         chatWindow.style.display = 'flex';
     });
@@ -120,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     emojiList.addEventListener('click', (e) => {
-        if (e.target.classList.contains('emoji')) {
+        if (e.target.tagName === 'SPAN') {
             chatInput.value += e.target.textContent;
         }
     });
@@ -133,7 +136,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const messageDiv = document.createElement('div');
         messageDiv.textContent = message;
         messageDiv.style.margin = sender === 'user' ? 'auto 0 auto auto' : 'auto auto auto 0';
+        messageDiv.style.backgroundColor = sender === 'user' ? '#d1e7dd' : '#f8d7da';
+        messageDiv.style.padding = '8px';
+        messageDiv.style.borderRadius = '8px';
+        messageDiv.style.marginBottom = '5px';
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-});
+})();
